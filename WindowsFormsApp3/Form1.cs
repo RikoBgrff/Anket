@@ -30,7 +30,7 @@ namespace WindowsFormsApp3
             listBox1.Items.Add(
                 new User
                 {
-                    Name = textBox1.Text
+                    Name = nameTxtBx.Text
                 }
                 );
         }
@@ -47,27 +47,16 @@ namespace WindowsFormsApp3
 
             User user = new User
             {
-                Name = textBox1.Text,
-                Surname = textBox2.Text,
-                Email = textBox3.Text,
-                Phone = textBox4.Text,
-                BirthDate = dateTimePicker1.Value
+                Name = nameTxtBx.Text,
+                Surname = surnameTxtBx.Text,
+                Email = phoneTxtBx.Text,
+                Phone = emailTxtBx.Text,
+                BirthDate = birthDate.Value
             };
             helper.JsonSerialize(user);
         }
 
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            helper.JsonDeserialize(fileNameTxtBx.Text);
-            var obj = listBox1.SelectedItem as User;
-            var p = helper.JsonDeserialize((obj)?.Name);
-            textBox1.Text = p.Name;
-            textBox2.Text = p.Surname;
-            textBox3.Text = p.Email;
-            textBox4.Text = p.Phone;
-            dateTimePicker1.Value = p.BirthDate;
-        }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -82,6 +71,96 @@ namespace WindowsFormsApp3
                 ChangeBtn.Location = new Point(119, 271);
                 AddBtn.Location = new Point(119, 299);
             }
+        }
+
+        private void GunaLoadBtn_Click(object sender, EventArgs e)
+        {
+            if (listBox1.Text != "")
+            {
+                var obj = listBox1.SelectedItem as User;
+                var p = FileHelper.JsonDeserialize((obj)?.Name);
+                try
+                {
+                    nameTxtBx.Text = p.Name;
+                    surnameTxtBx.Text = p.Surname;
+                    emailTxtBx.Text = p.Surname;
+                    phoneTxtBx.Text = p.Phone;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+        }
+
+        private void guna2Button1_Click(object sender, EventArgs e)
+        {
+            User user = new User
+            {
+                Name = nameTxtBx.Text,
+                Surname = surnameTxtBx.Text,
+                Email = phoneTxtBx.Text,
+                Phone = emailTxtBx.Text,
+                BirthDate = birthDate.Value
+            };
+            helper.JsonSerialize(user);
+
+        }
+
+        private void guna2Button1_Click_1(object sender, EventArgs e)
+        {
+            AddBtn.Location = new Point(99, 270);
+            ChangeBtn.Location = new Point(99, 299);
+
+            listBox1.Items.Add(
+                new User
+                {
+                    Name = nameTxtBx.Text
+                }
+                );
+        }
+
+        private void guna2Button1_Click_2(object sender, EventArgs e)
+        {
+            changeBtnPressed = true;
+            if (changeBtnPressed == true)
+            {
+                ChangeBtn.Location = new Point(99, 270);
+                AddBtn.Location = new Point(99, 299);
+            }
+            var obj = listBox1.SelectedItem as User;
+            var p = FileHelper.JsonDeserialize((obj)?.Name);
+            try
+            {
+                nameTxtBx.Text = p.Name;
+                surnameTxtBx.Text = p.Surname;
+                emailTxtBx.Text = p.Surname;
+                phoneTxtBx.Text = p.Phone;
+                birthDate.Value = p.BirthDate;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            User user = new User
+            {
+                Name = nameTxtBx.Text,
+                Surname = surnameTxtBx.Text,
+                Email = emailTxtBx.Text,
+                Phone = phoneTxtBx.Text
+            };
+            helper.JsonSerialize(user);
+        }
+
+
+        private void guna2CircleButton1_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void guna2CircleButton2_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
         }
     }
 }

@@ -24,7 +24,7 @@ namespace WindowsFormsApp3
             }
         }
 
-        public User JsonDeserialize(string filename)
+        public static User JsonDeserialize(string filename)
 
         {
             User person = new User();
